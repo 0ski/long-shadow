@@ -1,0 +1,99 @@
+$shadow-default-color: rgba(128, 128, 128, 0.05);
+$default-start-break-point: 30%;
+$default-mid-break-point: 60%;
+$default-end-break-point: 85%;
+
+@function clear-units($value){
+    @if type-of($value) == "number" {
+        @if (unitless($value)) {
+            @return $value;
+        } @else {
+            @return $value / ($value * 0 + 1);
+        }
+    } @else {
+        @warn "Not a number value: #{$value}";
+        @return $value;
+    }
+}
+
+@function long-shadow-value(
+  $length: 100,
+  $color: $shadow-default-color,
+  $stepX: 0.5,
+  $stepY: 0.5,
+  $blur: 1
+) {
+  $unit: unit($length);
+  @if $unit == "" {
+    $unit: "px";
+  }
+
+  $length: clear-units($length);
+
+  $stepsX: 0;
+  $stepsMax: 0;
+  @if $stepX != 0 {
+      $stepsX: abs($length / $stepX);
+      $stepsMax: $stepsX;
+  }
+
+  $stepsY: 0;
+  @if $stepY != 0 {
+      $stepsY: abs($length / $stepY);
+      $stepsMax: $stepsY;
+  }
+
+  $variable: $color 0#{$unit} 0#{$unit} #{$blur}#{$unit};
+
+  @if $stepX == 0 and $stepY == 0 {
+    @return $variable;
+  } @else if $stepX == 0 or $stepY == 0 {
+    @for $i from 0 through $stepsMax {
+      $variable: #{$variable}, #{$color} #{$i * $stepX}#{$unit} #{$i * $stepY}#{$unit} #{$blur}#{$unit};
+    }
+  } @else if $stepsX <= $stepsY {
+    $steps: $stepsY / $stepsX;
+    @for $i from 0 through $stepsX {
+      @for $j from 0 through $steps - 1 {
+          $variable: #{$variable}, #{$color} #{$i * $stepX}#{$unit} #{$i * $stepY + $j}#{$unit} #{$blur}#{$unit};
+      }
+    }
+  } @else {
+    $steps: $stepsX / $stepsY;
+    @for $i from 0 through $stepsY {
+      @for $j from 0 through $steps - 1 {
+          $variable: #{$variable}, #{$color} #{$i * $stepX + $j}#{$unit} #{$i * $stepY}#{$unit} #{$blur}#{$unit};
+      }
+    }
+  }
+
+  @return $variable;
+}
+
+@mixin long-text-shadow(
+  $length: 100,
+  $color: $shadow-default-color,
+  $stepX: 0.5,
+  $stepY: 0.5,
+  $blur: 1
+) {
+  text-shadow: long-shadow-value($length, $color, $stepX, $stepY, $blur);
+}
+
+@mixin long-box-shadow(
+  $length: 100,
+  $color: $shadow-default-color,
+  $stepX: 0.5,
+  $stepY: 0.5,
+  $blur: 1
+) {
+  box-shadow: long-shadow-value($length, $color, $stepX, $stepY, $blur);
+}
+
+@mixin ease-long-shadow(
+  $start-break-point: $default-start-break-point,
+  $mid-break-point: $default-mid-break-point,
+  $end-break-point: $default-end-break-point
+) {
+  -webkit-mask-image: radial-gradient(ellipse farthest-corner at 30% 15%, white #{$start-break-point}, rgba(255, 255, 255, 0) #{$mid-break-point}, rgba(255, 255, 255, 0) #{$end-break-point});
+}

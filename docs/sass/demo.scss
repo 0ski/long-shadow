@@ -1,0 +1,25 @@
+@import "long-shadow";
+@import "logo";
+
+$container-height: 150px;
+
+.main {
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  width: 100%;
+  font-size: 75px;
+  height: $container-height;
+  overflow: hidden;
+  text-align: center;
+}
+
+.container--long-text-shadow {
+  @include long-text-shadow($container-height);
+}
+
+.container--ease-long-shadow {
+  @include ease-long-shadow();
+}

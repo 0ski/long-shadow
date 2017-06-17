@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="css/demo.css">
+  </head>
+  <body class="main">
+    <p>
+    <h1>Long shadow SASS mixin</h1>
+
+    <p>
+      SASS mixin to produce long shadows.
+      Long shadow is created out of multiple dropped shadows.
+      It produces text or box shadow based on parameters:
+    </p>
+    <ul>
+      <li>$length (default: 100) - length of the shadow, the unit is extracted and used in further computations</li>
+      <li>$color (default: rgba(128, 128, 128, 0.05)) - color of the shadow</li>
+      <li>$stepX (default: 0.5) - the X distance between dropped shadows (value between 0 and 1 means more created shadows), negative value can be used</li>
+      <li>$stepY (default: 0.5) - the Y distance between dropped shadows (value between 0 and 1 means more created shadows), negative value can be used</li>
+      <li>$blur (default: 1) - blur parameter for created shadows</li>
+    </ul>
+    </p>
+    <div class="logo-wrapper">
+      <div class="logo logo--drop-long-shadow">OO</div>
+    </div>
+    <div class="logo logo--text-long-shadow">OO</div>
+    <div class="logo logo--text-long-shadow">OO</div>
+    <div class="logo logo--text-long-shadow--rotated">OO</div>
+    <div class="container container--long-text-shadow container--ease-long-shadow">0ski</div>
+    <div class="container container--long-text-shadow container--ease-long-shadow">Oskar Otwinowski</div>
+  </body>
+</html>

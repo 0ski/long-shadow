@@ -1,0 +1,43 @@
+$shadow-height: 50px;
+$wrapper-height: 250px;
+$logo-height: 150px;
+$logo-text-size: 100px;
+$pantone-green: rgb(133, 178, 80);
+$shadow-logo-color: rgba(115, 160, 62, 1);
+$wrapper-color: rgb(200, 200, 200);
+$box-shadow: rgb(180, 180, 180);
+
+.logo-wrapper {
+  overflow: hidden;
+}
+
+.logo {
+  padding: 20px;
+  background-color: $pantone-green;
+  font: $logo-text-size bold;
+  line-height: $logo-height;
+  width: $logo-height;
+  height: $logo-height;
+  text-align: center;
+  vertical-align: middle;
+  overflow: hidden;
+  margin: 5px auto;
+}
+
+.logo--text-long-shadow {
+  @include long-text-shadow($logo-height, $shadow-logo-color);
+}
+
+.logo-wrapper {
+  width: 100%;
+  height: $wrapper-height;
+  background-color: $wrapper-color;
+}
+
+.logo--text-long-shadow--rotated {
+  @include long-text-shadow($logo-height, $shadow-logo-color, 0.5, -0.5);
+}
+
+.logo--drop-long-shadow {
+  @include long-box-shadow($wrapper-height, $box-shadow);
+}
